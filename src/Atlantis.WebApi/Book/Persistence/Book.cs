@@ -1,12 +1,10 @@
 ﻿namespace Atlantis.WebApi.Book.Persistence
 {
+    using Atlantis.WebApi.Shared.DataAccess.Base;
     using System;
-    using System.ComponentModel.DataAnnotations;
 
-    public class Book
+    public class Book : Entity<Guid>
     {
-        [Key]
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Isbn { get; set; }
         public int Year { get; set; }
