@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Atlantis.WebApi", "Atlantis.WebApi\Atlantis.WebApi.csproj", "{307CFE08-2906-4C52-9772-7B020976AC2A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{030DCAC7-D85A-4012-9A4A-3A29459D4D66}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B0C226F8-7D52-4602-976F-9EE48A8D9EEB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Atlantis.WebApi", "Atlantis.WebApi", "{D34BF960-AA05-4A0D-A3D9-5EE5DF089164}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atlantis.WebApi", "src\Atlantis.WebApi\Atlantis.WebApi.csproj", "{923F24AC-AB5B-4BAF-98AE-0FE4C9F6BE89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +17,17 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{307CFE08-2906-4C52-9772-7B020976AC2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{307CFE08-2906-4C52-9772-7B020976AC2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{307CFE08-2906-4C52-9772-7B020976AC2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{307CFE08-2906-4C52-9772-7B020976AC2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{923F24AC-AB5B-4BAF-98AE-0FE4C9F6BE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{923F24AC-AB5B-4BAF-98AE-0FE4C9F6BE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{923F24AC-AB5B-4BAF-98AE-0FE4C9F6BE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{923F24AC-AB5B-4BAF-98AE-0FE4C9F6BE89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D34BF960-AA05-4A0D-A3D9-5EE5DF089164} = {030DCAC7-D85A-4012-9A4A-3A29459D4D66}
+		{923F24AC-AB5B-4BAF-98AE-0FE4C9F6BE89} = {D34BF960-AA05-4A0D-A3D9-5EE5DF089164}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3E948763-F2C8-44BD-AC6D-AAFA6DE1AADC}
