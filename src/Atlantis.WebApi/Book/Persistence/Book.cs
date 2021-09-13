@@ -3,7 +3,7 @@
     using Atlantis.WebApi.Shared.DataAccess.Base;
     using System;
 
-    public class Book : Entity<Guid>
+    internal class Book : Entity<Guid>
     {
         public string Title { get; set; }
         public string Isbn { get; set; }

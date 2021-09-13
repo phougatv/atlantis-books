@@ -5,7 +5,7 @@
     using AutoMapper;
     using System;
 
-    public class BookService : IBookService
+    internal class BookService : IBookService
     {
         private readonly IMapper _mapper;
         private readonly IBookRepository _repository;

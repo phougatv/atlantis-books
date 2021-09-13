@@ -3,7 +3,7 @@
     using Atlantis.WebApi.Shared.DataAccess.Base.Repository;
     using System;
 
-    public class BookRepository : EfRepository<Book, Guid>, IBookRepository
+    internal class BookRepository : EfRepository<Book, Guid>, IBookRepository
     {
         private readonly AtlantisDbContext _dbContext;
         public BookRepository(AtlantisDbContext dbContext)

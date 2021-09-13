@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class Entity<TId>
+    internal class Entity<TId>
     {
         /// <summary>
         /// The id

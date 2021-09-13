@@ -2,7 +2,7 @@
 {
     using Atlantis.WebApi.Book.Persistence;
 
-    public abstract class EfRepository<TEntity, TId> : IRepository<TEntity, TId>
+    internal abstract class EfRepository<TEntity, TId> : IRepository<TEntity, TId>
         where TEntity : Entity<TId>
         where TId : struct
     {
