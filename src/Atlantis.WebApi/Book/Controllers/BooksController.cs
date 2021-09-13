@@ -24,8 +24,8 @@
         [HttpGet("{id:guid}")]
         public IActionResult Read(Guid id)
         {
-            var book = _service.Read(id);
-            return Ok(book);
+            var bookDto = _service.Read(id);
+            return Ok(bookDto);
         }
     }
 }

@@ -2,6 +2,7 @@ namespace Atlantis.WebApi
 {
     using Atlantis.WebApi.Book.Business;
     using Atlantis.WebApi.Book.Persistence;
+    using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,10 @@ namespace Atlantis.WebApi
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
 
     /// <summary>
     /// The startup class.
@@ -55,6 +60,8 @@ namespace Atlantis.WebApi
                 optionsBuilder.UseSqlServer(Configuration.GetSection("ConnectionString").Value);
             });
 
+            AddAtlantisAutomapper(services);
+
             services
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IBookRepository, BookRepository>();
@@ -92,5 +99,25 @@ namespace Atlantis.WebApi
                     endpoints.MapControllers();
                 });
         }
+
+        #region Private Static Methods
+        private IServiceCollection AddAtlantisAutomapper(IServiceCollection services)
+        {
+            var atlantisAssemblies = GetAtlantisAssemblies();
+            var mapper = GetMapper(atlantisAssemblies);
+            services.AddSingleton(mapper);
+
+            return services;
+        }
+
+        private IMapper GetMapper(IEnumerable<Assembly> atlantisAssemblies) =>
+            new MapperConfiguration(configExp => configExp.AddMaps(atlantisAssemblies.ToArray()))
+                .CreateMapper();
+
+        private IEnumerable<Assembly> GetAtlantisAssemblies() =>
+            AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(assembly => assembly.GetName().FullName.StartsWith("Atlantis."));
+        #endregion
     }
 }
