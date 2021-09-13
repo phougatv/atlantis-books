@@ -31,6 +31,8 @@ namespace Atlantis.WebApi
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+            services.AddControllers();
         }
 
         /// <summary>
@@ -45,15 +47,12 @@ namespace Atlantis.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
+            app
+                .UseRouting()
+                .UseEndpoints(endpoints =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    endpoints.MapControllers();
                 });
-            });
         }
     }
 }
