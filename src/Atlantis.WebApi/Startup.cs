@@ -7,12 +7,26 @@ namespace Atlantis.WebApi
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
 
+    /// <summary>
+    /// The startup class.
+    /// </summary>
     public class Startup
     {
+        /// <summary> The configuration <see cref="IConfiguration"/>. </summary>
         public IConfiguration Configuration { get; }
+
+        /// <summary> The web host environment <see cref="IWebHostEnvironment"/>. </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
+
+        /// <summary> The logger <see cref="ILogger{Startup}"/>. </summary>
         public ILogger<Startup> Logger { get; }
 
+        /// <summary>
+        /// Ctor of Startup class.
+        /// </summary>
+        /// <param name="configuration"><paramref name="configuration"/></param>
+        /// <param name="webHostEnvironment"><paramref name="webHostEnvironment"/></param>
+        /// <param name="logger"><paramref name="logger"/></param>
         public Startup(
             IConfiguration configuration,
             IWebHostEnvironment webHostEnvironment,
