@@ -1,7 +1,10 @@
 namespace Atlantis.WebApi
 {
+    using Atlantis.WebApi.Book.Business;
+    using Atlantis.WebApi.Book.Persistence;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -46,6 +49,15 @@ namespace Atlantis.WebApi
         {
             services.AddMvc();
             services.AddControllers();
+            services.AddDbContext<AtlantisDbContext>(optionsBuilder =>
+            {
+                // Install-Package Microsoft.EntityFrameworkCore.SqlServer for this extension method
+                optionsBuilder.UseSqlServer(Configuration.GetSection("ConnectionString").Value);
+            });
+
+            services
+                .AddScoped<IBookService, BookService>()
+                .AddScoped<IBookRepository, BookRepository>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
