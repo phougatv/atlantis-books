@@ -2,6 +2,7 @@ namespace Atlantis.WebApi
 {
     using Atlantis.WebApi.Book.Business;
     using Atlantis.WebApi.Book.Persistence;
+    using Atlantis.WebApi.Shared.Extensions;
     using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -94,6 +95,7 @@ namespace Atlantis.WebApi
 
             app
                 .UseRouting()
+                .UseUserContext()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
