@@ -67,6 +67,9 @@ namespace Atlantis.WebApi
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IBookRepository, BookRepository>();
 
+            services
+                .AddUserContext();
+
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
         }

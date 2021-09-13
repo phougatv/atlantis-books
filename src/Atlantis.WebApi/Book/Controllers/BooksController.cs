@@ -1,6 +1,7 @@
 ﻿namespace Atlantis.WebApi.Book.Controllers
 {
     using Atlantis.WebApi.Book.Business;
+    using Atlantis.WebApi.Shared.Context.Accessors;
     using Microsoft.AspNetCore.Mvc;
     using System;
 
@@ -9,10 +10,14 @@
     public class BooksController : ControllerBase
     {
         private readonly IBookService _service;
+        private readonly IUserContextAccessor _userContextAccessor;
 
-        public BooksController(IBookService service)
+        public BooksController(
+            IBookService service,
+            IUserContextAccessor userContextAccessor)
         {
             _service = service;
+            _userContextAccessor = userContextAccessor;
         }
 
         [HttpGet]
