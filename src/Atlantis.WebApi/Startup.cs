@@ -71,10 +71,7 @@ namespace Atlantis.WebApi
             app
                 .UseRouting()
                 .UseAtlantis(Configuration, Logger)
-                .UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-                });
+                .UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
         
