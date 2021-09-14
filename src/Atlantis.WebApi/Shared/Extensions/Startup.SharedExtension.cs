@@ -12,6 +12,11 @@
 
     internal static class SharedExtension
     {
+        /// <summary>
+        /// Adds all the custom services required by Atlantis (the application).
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
         internal static IServiceCollection AddAtlantis(this IServiceCollection services)
         {
             services
@@ -22,6 +27,13 @@
             return services;
         }
 
+        /// <summary>
+        /// Configures custom middlewares to the HTTP request pipeline, which are required by Atlantis.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="configuration"></param>
+        /// <param name="logger"></param>
+        /// <returns></returns>
         internal static IApplicationBuilder UseAtlantis(this IApplicationBuilder app, IConfiguration configuration, ILogger logger) =>
             app
                 .UseSwagger(configuration, logger)
