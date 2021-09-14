@@ -6,14 +6,14 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
-    public static class UserContextExtension
+    internal static class UserContextExtension
     {
-        public static IServiceCollection AddUserContext(this IServiceCollection services) =>
+        internal static IServiceCollection AddUserContext(this IServiceCollection services) =>
             services
                 .AddSingleton<IUserContextAccessor, UserContextAccessor>()
                 .AddSingleton<IUserContextFactory, DefaultUserContextFactory>();
 
-        public static IApplicationBuilder UseUserContext(this IApplicationBuilder app) =>
+        internal static IApplicationBuilder UseUserContext(this IApplicationBuilder app) =>
             app.UseMiddleware<UserContextMiddleware>();
     }
 }
