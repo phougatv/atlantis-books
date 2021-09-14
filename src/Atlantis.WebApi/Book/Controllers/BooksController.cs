@@ -41,7 +41,7 @@
         public IActionResult Read([FromRoute] Guid id)
         {
             var domainModel = _service.Read(id);
-            var bookDto = _mapper.Map<BookDto>(domainModel);
+            var bookDto = _mapper.Map<BookReadDto>(domainModel);
 
             return Ok(bookDto);
         }
@@ -53,6 +53,14 @@
             var isUpdated = _service.Updated(domainModel);
 
             return StatusCode(isUpdated ? Status204NoContent : Status304NotModified);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public IActionResult Delete([FromRoute]Guid id)
+        {
+            var isDeleted = _service.Delete(id);
+
+            return StatusCode(isDeleted ? Status204NoContent : Status304NotModified);
         }
     }
 }

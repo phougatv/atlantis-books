@@ -46,5 +46,13 @@
 
             return isUpdated && rowsAffected == 1;
         }
+
+        public bool Delete(Guid id)
+        {
+            var isDeleted = _repository.Delete(id);
+            var rowsAffected = _dbContext.SaveChanges();
+
+            return isDeleted && rowsAffected == 1;
+        }
     }
 }
