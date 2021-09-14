@@ -70,7 +70,7 @@
 
             app
                 .UseSwagger()   // Enable middleware to serve generated Swagger as a JSON endpoint.
-                .UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "Atlantis API V1"));   // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+                .UseSwaggerUI(options => options.SwaggerEndpoint(configuration["Swagger:EndpointUrl"], configuration["Swagger:EndpointName"]));   // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 
             logger.LogInformation("Swagger: Successfully configured.");
 
