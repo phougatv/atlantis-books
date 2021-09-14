@@ -2,7 +2,6 @@
 {
     using Atlantis.WebApi.Book.Business;
     using Atlantis.WebApi.Book.Dtos;
-    using Atlantis.WebApi.Shared.Context.Accessors;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -14,16 +13,13 @@
     {
         private readonly IMapper _mapper;
         private readonly IBookService _service;
-        private readonly IUserContextAccessor _userContextAccessor;
 
         public BooksController(
             IMapper mapper,
-            IBookService service,
-            IUserContextAccessor userContextAccessor)
+            IBookService service)
         {
             _mapper = mapper;
             _service = service;
-            _userContextAccessor = userContextAccessor;
         }
 
         [HttpGet]
