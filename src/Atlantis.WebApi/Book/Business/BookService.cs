@@ -1,6 +1,5 @@
 ﻿namespace Atlantis.WebApi.Book.Business
 {
-    using Atlantis.WebApi.Book.Dtos;
     using Atlantis.WebApi.Book.Persistence;
     using AutoMapper;
     using System;
@@ -17,13 +16,12 @@
             _repository = repository;
         }
 
-        public BookDto Read(Guid id)
+        public BookDomainModel Read(Guid id)
         {
             var book = _repository.Read(id);
             var bookDomainModel = _mapper.Map<BookDomainModel>(book);
-            var bookDto = _mapper.Map<BookDto>(bookDomainModel);
 
-            return bookDto;
+            return bookDomainModel;
         }
     }
 }
