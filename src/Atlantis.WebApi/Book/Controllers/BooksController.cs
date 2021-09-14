@@ -1,6 +1,7 @@
 ﻿namespace Atlantis.WebApi.Book.Controllers
 {
     using Atlantis.WebApi.Book.Business;
+    using Atlantis.WebApi.Book.Dtos;
     using Atlantis.WebApi.Shared.Context.Accessors;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,9 @@
         [HttpGet("{id:guid}")]
         public IActionResult Read([FromRoute] Guid id)
         {
-            var bookDto = _service.Read(id);
+            var domainModel = _service.Read(id);
+            var bookDto = _mapper.Map<BookDto>(domainModel);
+
             return Ok(bookDto);
         }
     }
