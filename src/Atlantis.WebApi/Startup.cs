@@ -64,11 +64,10 @@ namespace Atlantis.WebApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
-            {
                 app.UseExceptionHandler("/api/error/on-dev-env");
-            }
             else
                 app.UseExceptionHandler("/api/error");
+
             app
                 .UseRouting()
                 .UseAtlantis(Configuration, Logger)
