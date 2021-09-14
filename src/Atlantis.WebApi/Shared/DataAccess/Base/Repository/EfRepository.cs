@@ -48,6 +48,9 @@
         bool IRepository<TEntity, TId>.Update(TEntity entity)
         {
             var internalEntity = InternalReadById(entity.Id);
+            if (internalEntity == null)
+                return false;
+
             entity.CreatedOn = internalEntity.CreatedOn;
             entity.UpdatedOn = DateTime.UtcNow;
             _dbContext.Entry(internalEntity).State = EntityState.Detached;
