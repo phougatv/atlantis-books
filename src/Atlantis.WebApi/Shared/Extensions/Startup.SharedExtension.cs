@@ -1,6 +1,7 @@
 ﻿namespace Atlantis.WebApi.Shared.Extensions
 {
     using Atlantis.WebApi.Book.Extensions;
+    using Atlantis.WebApi.Order.Extensions;
     using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@
         {
             services
                 .AddAtlantisBook(configuration)
+                .AddAtlantisOrder()
                 .AddAtlantisAutomapper()
                 .AddUserContext()
                 .AddSwaggerGen();   // Register the Swagger generator, defining 1 or more Swagger documents
