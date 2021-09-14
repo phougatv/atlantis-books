@@ -5,11 +5,10 @@
 
     internal class BookRepository : EfRepository<Book, Guid>, IBookRepository
     {
-        private readonly AtlantisDbContext _dbContext;
         public BookRepository(AtlantisDbContext dbContext)
             : base(dbContext)
         {
-            _dbContext = dbContext;
+
         }
     }
 }
