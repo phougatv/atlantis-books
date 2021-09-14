@@ -7,13 +7,27 @@
     internal class BookService : IBookService
     {
         private readonly IMapper _mapper;
+        private readonly AtlantisDbContext _dbContext;
         private readonly IBookRepository _repository;
         public BookService(
             IMapper mapper,
+            AtlantisDbContext dbContext,
             IBookRepository repository)
         {
             _mapper = mapper;
+            _dbContext = dbContext;
             _repository = repository;
+        }
+
+        public bool Create(BookDomainModel model)
+        {
+            var book = _mapper.Map<Book>(model);
+            book.Id = Guid.NewGuid();
+
+            var isCreated = _repository.Create(book);
+            var rowsAffected = _dbContext.SaveChanges();
+
+            return isCreated && rowsAffected == 1;
         }
 
         public BookDomainModel Read(Guid id)

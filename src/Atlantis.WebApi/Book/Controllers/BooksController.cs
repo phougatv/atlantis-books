@@ -6,6 +6,7 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using static Microsoft.AspNetCore.Http.StatusCodes;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -29,6 +30,15 @@
         public IActionResult Ping()
         {
             return Ok("Ping!!!");
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] BookCreateDto dto)
+        {
+            var domainModel = _mapper.Map<BookDomainModel>(dto);
+            var isCreated = _service.Create(domainModel);
+
+            return StatusCode(isCreated ? Status201Created : Status500InternalServerError);
         }
 
         [HttpGet("{id:guid}")]

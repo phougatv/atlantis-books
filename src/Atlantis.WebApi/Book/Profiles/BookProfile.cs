@@ -9,6 +9,9 @@
     {
         public BookProfile()
         {
+            CreateMap<BookCreateDto, BookDomainModel>().ReverseMap();
+            CreateMap<BookDomainModel, Book>().ReverseMap();
+
             CreateMap<BookDomainModel, BookDto>().ReverseMap();
             CreateMap<Book, BookDomainModel>().ReverseMap();
         }

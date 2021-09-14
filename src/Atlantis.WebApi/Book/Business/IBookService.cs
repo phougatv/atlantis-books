@@ -4,6 +4,7 @@
 
     public interface IBookService
     {
+        bool Create(BookDomainModel model);
         BookDomainModel Read(Guid id);
     }
 }
