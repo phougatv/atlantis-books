@@ -54,14 +54,7 @@ namespace Atlantis.WebApi
             services.AddMvc();
             services.AddControllers();
             services.AddAtlantisBook(Configuration);
-
-            AddAtlantisAutomapper(services);
-
-            services
-                .AddUserContext();
-
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            services.AddAtlantis();
         }
 
         /// <summary>
@@ -75,44 +68,15 @@ namespace Atlantis.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Atlantis API V1");
-                //c.RoutePrefix = string.Empty;         // To serve the Swagger UI at the app's root (http://localhost:<port>/).
-            });
-
             app
                 .UseRouting()
-                .UseUserContext()
+                .UseAtlantis(Configuration, Logger)
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
                 });
         }
 
-        #region Private Static Methods
-        private IServiceCollection AddAtlantisAutomapper(IServiceCollection services)
-        {
-            var atlantisAssemblies = GetAtlantisAssemblies();
-            var mapper = GetMapper(atlantisAssemblies);
-            services.AddSingleton(mapper);
-
-            return services;
-        }
-
-        private IMapper GetMapper(IEnumerable<Assembly> atlantisAssemblies) =>
-            new MapperConfiguration(configExp => configExp.AddMaps(atlantisAssemblies.ToArray()))
-                .CreateMapper();
-
-        private IEnumerable<Assembly> GetAtlantisAssemblies() =>
-            AppDomain.CurrentDomain
-                .GetAssemblies()
-                .Where(assembly => assembly.GetName().FullName.StartsWith("Atlantis."));
-        #endregion
+        
     }
 }
