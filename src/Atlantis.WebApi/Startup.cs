@@ -1,18 +1,12 @@
 namespace Atlantis.WebApi
 {
     using Atlantis.WebApi.Shared.Extensions;
-    using Atlantis.WebApi.Book.Extensions;
-    using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
 
     /// <summary>
     /// The startup class.
@@ -74,6 +68,6 @@ namespace Atlantis.WebApi
                 .UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
-        
+
     }
 }
