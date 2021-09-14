@@ -65,8 +65,10 @@ namespace Atlantis.WebApi
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/api/error/on-dev-env");
             }
+            else
+                app.UseExceptionHandler("/api/error");
             app
                 .UseRouting()
                 .UseAtlantis(Configuration, Logger)
