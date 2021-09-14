@@ -2,7 +2,6 @@
 {
     using Atlantis.WebApi.Shared.Context.Factories;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Primitives;
     using System;
     using System.Threading.Tasks;
@@ -12,18 +11,15 @@
         private const string UserKey = "user-key";
 
         private readonly RequestDelegate _next;
-        //private readonly IUserContextFactory _userContextFactory;
 
         public UserContextMiddleware(RequestDelegate next)
         {
             _next = next;
-            //_userContextFactory = userContextFactory;
         }
 
         public async Task Invoke(HttpContext httpContext, IUserContextFactory userContextFactory)
         {
             // Extract UserKey from HttpRequest
-            //var userContextFactory = httpContext.RequestServices.GetRequiredService<IUserContextFactory>();
             var headers = httpContext.Request.Headers;
             Guid key = Guid.Empty;
             if (headers.TryGetValue(UserKey, out var value) && !StringValues.IsNullOrEmpty(value))
@@ -41,7 +37,6 @@
             }
 
             // Create and set UserContext
-            //_userContextFactory.Create(key);
             userContextFactory.Create(key);
 
             // Set UserKey-> key/value to HttpResponse header.
