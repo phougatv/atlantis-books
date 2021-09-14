@@ -1,5 +1,6 @@
 ﻿namespace Atlantis.WebApi.Shared.Extensions
 {
+    using Atlantis.WebApi.Book.Extensions;
     using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Configuration;
@@ -17,9 +18,10 @@
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        internal static IServiceCollection AddAtlantis(this IServiceCollection services)
+        internal static IServiceCollection AddAtlantis(this IServiceCollection services, IConfiguration configuration)
         {
             services
+                .AddAtlantisBook(configuration)
                 .AddAtlantisAutomapper()
                 .AddUserContext()
                 .AddSwaggerGen();   // Register the Swagger generator, defining 1 or more Swagger documents

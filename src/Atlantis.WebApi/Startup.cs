@@ -53,8 +53,7 @@ namespace Atlantis.WebApi
         {
             services.AddMvc();
             services.AddControllers();
-            services.AddAtlantisBook(Configuration);
-            services.AddAtlantis();
+            services.AddAtlantis(Configuration);
         }
 
         /// <summary>
