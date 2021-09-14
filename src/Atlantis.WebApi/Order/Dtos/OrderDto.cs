@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class CheckoutDto
+    public class OrderDto
     {
         public Guid CartId { get; set; }
     }

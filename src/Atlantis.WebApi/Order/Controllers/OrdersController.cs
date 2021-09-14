@@ -49,5 +49,14 @@
 
             return Ok(isCartUpdated);
         }
+
+        [HttpPost("checkout")]
+        public IActionResult PlaceOrder([FromBody] OrderDto dto)
+        {
+            var model = _mapper.Map<OrderDomainModel>(dto);
+            model.UserKey = _userContextAccessor.UserContext.UserKey;
+
+            return Ok();
+        }
     }
 }
