@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class BookDto
+    public class BookReadDto
     {
         /// <summary>
         /// Id, the primary key in the Book table.
