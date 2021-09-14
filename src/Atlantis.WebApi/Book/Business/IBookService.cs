@@ -6,5 +6,6 @@
     {
         bool Create(BookDomainModel model);
         BookDomainModel Read(Guid id);
+        bool Updated(BookDomainModel model);
     }
 }

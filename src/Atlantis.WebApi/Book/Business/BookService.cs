@@ -37,5 +37,14 @@
 
             return bookDomainModel;
         }
+
+        public bool Updated(BookDomainModel model)
+        {
+            var book = _mapper.Map<Book>(model);
+            var isUpdated = _repository.Update(book);
+            var rowsAffected = _dbContext.SaveChanges();
+
+            return isUpdated && rowsAffected == 1;
+        }
     }
 }

@@ -45,5 +45,14 @@
 
             return Ok(bookDto);
         }
+
+        [HttpPut]
+        public IActionResult Update([FromBody]BookUpdateDto dto)
+        {
+            var domainModel = _mapper.Map<BookDomainModel>(dto);
+            var isUpdated = _service.Updated(domainModel);
+
+            return StatusCode(isUpdated ? Status204NoContent : Status304NotModified);
+        }
     }
 }
