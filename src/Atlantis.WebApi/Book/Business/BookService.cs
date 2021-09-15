@@ -26,9 +26,9 @@
             book.Id = Guid.NewGuid();
 
             var isCreated = _repository.Create(book);
-            var rowsAffected = _uow.Commit();
+            var affectedRows = _uow.Commit();
 
-            return isCreated && rowsAffected == 1;
+            return isCreated && affectedRows == 1;
         }
 
         public BookDomainModel Read(Guid id)
@@ -43,17 +43,17 @@
         {
             var book = _mapper.Map<Book>(model);
             var isUpdated = _repository.Update(book);
-            var rowsAffected = _uow.Commit();
+            var affectedRows = _uow.Commit();
 
-            return isUpdated && rowsAffected == 1;
+            return isUpdated && affectedRows == 1;
         }
 
         public bool Delete(Guid id)
         {
             var isDeleted = _repository.Delete(id);
-            var rowsAffected = _uow.Commit();
+            var affectedRows = _uow.Commit();
 
-            return isDeleted && rowsAffected == 1;
+            return isDeleted && affectedRows == 1;
         }
     }
 }
