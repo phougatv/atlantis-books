@@ -1,6 +1,7 @@
 ﻿namespace Atlantis.WebApi.Shared.DataAccess.Base.Repository
 {
     using Atlantis.WebApi.Book.Persistence;
+    using Atlantis.WebApi.Shared.Extensions;
     using Microsoft.EntityFrameworkCore;
     using System;
 
@@ -30,7 +31,7 @@
             entity.CreatedOn = DateTime.UtcNow;
             var entityEntry = _dbContext.Set<TEntity>().Add(entity);
 
-            return entityEntry.State == EntityState.Added;
+            return entityEntry.IsAdded();
         }
 
         /// <summary>
@@ -53,12 +54,12 @@
 
             entity.CreatedOn = internalEntity.CreatedOn;
             entity.UpdatedOn = DateTime.UtcNow;
-            _dbContext.Entry(internalEntity).State = EntityState.Detached;
+            _dbContext.Entry(internalEntity).Detach();
 
             var entityEntry = _dbContext.Attach(entity);
             entityEntry.State = EntityState.Modified;
 
-            return entityEntry.State == EntityState.Modified;
+            return entityEntry.IsModified();
         }
 
         /// <summary>
@@ -73,7 +74,7 @@
                 return false;
 
             var entityEntry = _dbContext.Set<TEntity>().Remove(entity);
-            return entityEntry.State == EntityState.Deleted;
+            return entityEntry.IsDeleted();
         }
         #endregion Public CRUD Methods
 
