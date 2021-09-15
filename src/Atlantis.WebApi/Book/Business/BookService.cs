@@ -1,21 +1,22 @@
 ﻿namespace Atlantis.WebApi.Book.Business
 {
     using Atlantis.WebApi.Book.Persistence;
+    using Atlantis.WebApi.Shared.DataAccess.UnitOfWork;
     using AutoMapper;
     using System;
 
     internal class BookService : IBookService
     {
         private readonly IMapper _mapper;
-        private readonly AtlantisDbContext _dbContext;
+        private readonly IUnitOfWork _uow;
         private readonly IBookRepository _repository;
         public BookService(
             IMapper mapper,
-            AtlantisDbContext dbContext,
+            IUnitOfWork uow,
             IBookRepository repository)
         {
             _mapper = mapper;
-            _dbContext = dbContext;
+            _uow = uow;
             _repository = repository;
         }
 
@@ -25,7 +26,7 @@
             book.Id = Guid.NewGuid();
 
             var isCreated = _repository.Create(book);
-            var rowsAffected = _dbContext.SaveChanges();
+            var rowsAffected = _uow.Commit();
 
             return isCreated && rowsAffected == 1;
         }
@@ -42,7 +43,7 @@
         {
             var book = _mapper.Map<Book>(model);
             var isUpdated = _repository.Update(book);
-            var rowsAffected = _dbContext.SaveChanges();
+            var rowsAffected = _uow.Commit();
 
             return isUpdated && rowsAffected == 1;
         }
@@ -50,7 +51,7 @@
         public bool Delete(Guid id)
         {
             var isDeleted = _repository.Delete(id);
-            var rowsAffected = _dbContext.SaveChanges();
+            var rowsAffected = _uow.Commit();
 
             return isDeleted && rowsAffected == 1;
         }
