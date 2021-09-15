@@ -11,15 +11,18 @@
     public class OrdersController : ControllerBase
     {
         private readonly IMapper _mapper;
+        private readonly IOrderService _orderService;
         private readonly ICartService _cartService;
         private readonly IUserContextAccessor _userContextAccessor;
 
         public OrdersController(
             IMapper mapper,
+            IOrderService orderService,
             ICartService cartService,
             IUserContextAccessor userContextAccessor)
         {
             _mapper = mapper;
+            _orderService = orderService;
             _cartService = cartService;
             _userContextAccessor = userContextAccessor;
         }
@@ -55,8 +58,9 @@
         {
             var model = _mapper.Map<OrderDomainModel>(dto);
             model.UserKey = _userContextAccessor.UserContext.UserKey;
+            var isCheckedOut = _orderService.OrderPlacement(model);
 
-            return Ok();
+            return Ok(isCheckedOut);
         }
     }
 }
