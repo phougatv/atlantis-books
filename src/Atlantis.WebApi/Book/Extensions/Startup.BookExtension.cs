@@ -2,6 +2,7 @@
 {
     using Atlantis.WebApi.Book.Business;
     using Atlantis.WebApi.Book.Persistence;
+    using Atlantis.WebApi.Shared.DataAccess.UnitOfWork;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@
         {
             services
                 .AddAtlantisDbContext(configuration)
+                .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IBookRepository, BookRepository>();
 

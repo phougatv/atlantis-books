@@ -2,7 +2,7 @@
 {
     using Atlantis.WebApi.Book.Persistence;
 
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AtlantisDbContext _dbContext;
 
