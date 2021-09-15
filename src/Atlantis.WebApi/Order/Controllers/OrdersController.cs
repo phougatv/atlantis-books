@@ -27,12 +27,6 @@
             _userContextAccessor = userContextAccessor;
         }
 
-        [HttpGet]
-        public IActionResult Ping()
-        {
-            return Ok("Order pinged!!!");
-        }
-
         [HttpPost("add-to-cart")]
         public IActionResult AddToCart([FromBody] CartAddDto cartAddDto)
         {
