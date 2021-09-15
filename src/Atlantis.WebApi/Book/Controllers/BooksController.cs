@@ -5,6 +5,7 @@
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using static Microsoft.AspNetCore.Http.StatusCodes;
 
     [Route("api/[controller]")]
@@ -20,12 +21,6 @@
         {
             _mapper = mapper;
             _service = service;
-        }
-
-        [HttpGet]
-        public IActionResult Ping()
-        {
-            return Ok("Ping!!!");
         }
 
         [HttpPost]
@@ -44,6 +39,15 @@
             var bookDto = _mapper.Map<BookReadDto>(domainModel);
 
             return Ok(bookDto);
+        }
+
+        [HttpGet]
+        public IActionResult ReadAll()
+        {
+            var models = _service.ReadAll();
+            var dtos = _mapper.Map<IEnumerable<BookReadDto>>(models);
+
+            return Ok(dtos);
         }
 
         [HttpPut]

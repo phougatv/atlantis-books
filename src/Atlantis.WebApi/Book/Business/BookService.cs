@@ -4,6 +4,7 @@
     using Atlantis.WebApi.Shared.DataAccess.UnitOfWork;
     using AutoMapper;
     using System;
+    using System.Collections.Generic;
 
     internal class BookService : IBookService
     {
@@ -37,6 +38,14 @@
             var bookDomainModel = _mapper.Map<BookDomainModel>(book);
 
             return bookDomainModel;
+        }
+
+        public IEnumerable<BookDomainModel> ReadAll()
+        {
+            var books = _repository.ReadAll();
+            var models = _mapper.Map<IEnumerable<BookDomainModel>>(books);
+
+            return models;
         }
 
         public bool Updated(BookDomainModel model)
