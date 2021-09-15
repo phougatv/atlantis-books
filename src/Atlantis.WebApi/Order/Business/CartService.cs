@@ -1,5 +1,6 @@
 ﻿namespace Atlantis.WebApi.Order.Business
 {
+    using Atlantis.WebApi.Shared.Context.Accessors;
     using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
@@ -7,12 +8,16 @@
     internal class CartService : ICartService
     {
         private readonly ILogger<CartService> _logger;
+        private readonly Guid _userKey;
 
         private readonly IDictionary<Guid, CartDomainModel> _cartMap;
 
-        public CartService(ILogger<CartService> logger)
+        public CartService(
+            ILogger<CartService> logger,
+            IUserContextAccessor userContextAccessor)
         {
             _logger = logger;
+            _userKey = userContextAccessor.UserContext.UserKey;
             _cartMap = new Dictionary<Guid, CartDomainModel>();
         }
 
@@ -25,35 +30,32 @@
             }
 
             model.CartId = Guid.NewGuid();
-            _cartMap.Add(model.CartId, model);
+            _cartMap.Add(_userKey, model);
 
             return model.CartId;
         }
 
-        CartDomainModel ICartService.Get(Guid id)
+        CartDomainModel ICartService.Get()
         {
-            if (id == Guid.Empty)
+            if (!_cartMap.TryGetValue(_userKey, out var model))
             {
-                _logger.LogInformation($"{nameof(id)} cannot be an empty guid.");
-                return null;
-            }
-            if (!_cartMap.TryGetValue(id, out var model))
-            {
-                _logger.LogInformation($"{nameof(id)}: {id}, does not exists.");
+                _logger.LogInformation($"Cart does not exists for {nameof(_userKey)}: {_userKey}.");
                 return null;
             }
             return model;
         }
 
-        bool ICartService.Update(CartDomainModel model)
+        bool ICartService.Update(CartDomainModel modelToBeUpdated)
         {
-            if (!_cartMap.ContainsKey(model.CartId))
+            if (!_cartMap.ContainsKey(_userKey))
             {
-                _logger.LogInformation("CartId does not exist in the cart. Cannot update the cart.");
+                _logger.LogInformation($"CartId does not exists for {nameof(_userKey)}: {_userKey}.");
                 return false;
             }
 
-            _cartMap[model.CartId] = model;
+            var model = _cartMap[_userKey];
+            if (model.CartId == modelToBeUpdated.CartId)
+                _cartMap[_userKey] = modelToBeUpdated;
 
             return true;
         }
