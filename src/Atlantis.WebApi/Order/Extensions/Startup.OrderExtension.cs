@@ -9,7 +9,7 @@
         internal static IServiceCollection AddAtlantisOrder(this IServiceCollection services)
         {
             services
-                .AddScoped<ICartService, CartService>()
+                .AddSingleton<ICartService, CartService>()
                 .AddScoped<IOrderService, OrderService>()
                 .AddScoped<IOrderRepository, OrderRepository>();
 
