@@ -24,7 +24,13 @@
 
         Guid ICartService.Create(CartDomainModel model)
         {
-            if (model.CartId.IsEmpty())
+            var userKey = _userContextAccessor.UserContext.UserKey;
+            if (userKey.IsEmpty())
+            {
+                _logger.LogInformation($"{nameof(_userContextAccessor.UserContext.UserKey)} is empty guid. Cannot create cart.");
+                return Guid.Empty;
+            }
+            if (!model.CartId.IsEmpty())
             {
                 _logger.LogInformation("CartId must be empty guid. Cannot add to cart.");
                 return Guid.Empty;
