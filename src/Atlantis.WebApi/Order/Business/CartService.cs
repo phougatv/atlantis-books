@@ -36,7 +36,7 @@
             return model.CartId;
         }
 
-        CartDomainModel ICartService.Get()
+        CartDomainModel ICartService.Get(Guid cartId)
         {
             if (!_cartMap.TryGetValue(_userContextAccessor.UserContext.UserKey, out var model))
             {

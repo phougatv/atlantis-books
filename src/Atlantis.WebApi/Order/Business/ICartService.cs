@@ -5,7 +5,7 @@
     public interface ICartService
     {
         Guid Create(CartDomainModel model);
-        CartDomainModel Get();
+        CartDomainModel Get(Guid cartId);
         bool Update(CartDomainModel model);
     }
 }
