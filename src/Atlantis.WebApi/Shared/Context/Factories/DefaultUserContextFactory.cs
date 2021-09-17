@@ -1,6 +1,7 @@
 ﻿namespace Atlantis.WebApi.Shared.Context.Factories
 {
     using Atlantis.WebApi.Shared.Context.Accessors;
+    using Atlantis.WebApi.Shared.Extensions;
     using Microsoft.Extensions.DependencyInjection;
     using System;
 
@@ -15,7 +16,7 @@
 
         public UserContext Create(Guid userKey)
         {
-            if (userKey == Guid.Empty)
+            if (userKey.IsEmpty())
                 throw new InvalidOperationException(nameof(userKey), new Exception("Cannot be an empty Guid."));
 
             var userContext = new UserContext(userKey);

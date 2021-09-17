@@ -1,6 +1,7 @@
 ﻿namespace Atlantis.WebApi.Order.Business
 {
     using Atlantis.WebApi.Shared.Context.Accessors;
+    using Atlantis.WebApi.Shared.Extensions;
     using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
@@ -23,7 +24,7 @@
 
         Guid ICartService.Create(CartDomainModel model)
         {
-            if (model.CartId != Guid.Empty)
+            if (model.CartId.IsEmpty())
             {
                 _logger.LogInformation("CartId must be empty guid. Cannot add to cart.");
                 return Guid.Empty;
