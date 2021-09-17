@@ -6,6 +6,7 @@
     {
         Guid Create(CartDomainModel model);
         CartDomainModel Get(Guid cartId);
+        bool IsEmpty();
         bool Update(CartDomainModel model);
     }
 }

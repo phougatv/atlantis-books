@@ -46,6 +46,23 @@
             return model;
         }
 
+        bool ICartService.IsEmpty()
+        {
+            var userKey = _userContextAccessor.UserContext.UserKey;
+            if (userKey.IsEmpty())
+            {
+                _logger.LogInformation($"{nameof(_userContextAccessor.UserContext.UserKey)} is empty guid. No cart info is available.");
+                return true;
+            }
+            if (!_cartMap.ContainsKey(userKey))
+            {
+                _logger.LogInformation($"{nameof(_userContextAccessor.UserContext.UserKey)}: {userKey} does not exists. No cart info is available.");
+                return true;
+            }
+
+            return false;
+        }
+
         bool ICartService.Update(CartDomainModel modelToBeUpdated)
         {
             if (!_cartMap.ContainsKey(_userContextAccessor.UserContext.UserKey))
