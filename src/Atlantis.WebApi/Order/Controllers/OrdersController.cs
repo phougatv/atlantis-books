@@ -2,7 +2,6 @@
 {
     using Atlantis.WebApi.Order.Business;
     using Atlantis.WebApi.Order.Dtos;
-    using Atlantis.WebApi.Shared.Context.Accessors;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
 
@@ -13,25 +12,21 @@
         private readonly IMapper _mapper;
         private readonly IOrderService _orderService;
         private readonly ICartService _cartService;
-        private readonly IUserContextAccessor _userContextAccessor;
 
         public OrdersController(
             IMapper mapper,
             IOrderService orderService,
-            ICartService cartService,
-            IUserContextAccessor userContextAccessor)
+            ICartService cartService)
         {
             _mapper = mapper;
             _orderService = orderService;
             _cartService = cartService;
-            _userContextAccessor = userContextAccessor;
         }
 
         [HttpPost("add-to-cart")]
         public IActionResult AddToCart([FromBody] CartAddDto cartAddDto)
         {
             var model = _mapper.Map<CartDomainModel>(cartAddDto);
-            model.UserKey = _userContextAccessor.UserContext.UserKey;
             var cartId = _cartService.Create(model);
 
             return Ok(cartId);
@@ -41,7 +36,6 @@
         public IActionResult UpdateCart([FromBody] CartUpdateDto cartUpdateDto)
         {
             var model = _mapper.Map<CartDomainModel>(cartUpdateDto);
-            model.UserKey = _userContextAccessor.UserContext.UserKey;
             var isCartUpdated = _cartService.Update(model);
 
             return Ok(isCartUpdated);
@@ -51,7 +45,6 @@
         public IActionResult PlaceOrder([FromBody] OrderDto dto)
         {
             var model = _mapper.Map<OrderDomainModel>(dto);
-            model.UserKey = _userContextAccessor.UserContext.UserKey;
             var isCheckedOut = _orderService.OrderPlacement(model);
 
             return Ok(isCheckedOut);
